@@ -193,8 +193,8 @@ void GoodsManager::init_Emp()
     ifstream ifs;
     ifs.open(FILENAME, ios::in);
 
-  /*   int id;
-    string name;
+  /*   int id;*/
+ /*   string name;
     int iNum;
     string sUnit;
     int iPrice; */
