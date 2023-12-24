@@ -8,6 +8,8 @@
 // #include "worker.h"
 #include <limits>
 #include<vector>
+#include <conio.h>
+
 //商品文件
 #define  FILENAME "empGdFile.txt"
 //日志文件
@@ -43,22 +45,25 @@ public:
             std::cout << "Logging message: " << message << std::endl;
         }; */
     void AddLog(string str);
+    void ShowLog();
 };
 
 // 用户管理类
-class UserManage
+class UserManage:public Log
 {
 public:
     string getUsername() { return username; }
     string getPassword() { return password; }
     // bool isPasswordCorrect(unsigned int password);
     int UserLogin();
-    unsigned int simpleHash(const std::string &str);
+    unsigned int simpleHash(const string &str);
     // 判断用户账号和密码是否匹配
     int UserMatch(string input_username, unsigned int encrypted_input_password);
     // 增加用户
     int UserAdd();
     int UserExt();
+   //输入密码
+    unsigned int InputPassword();
     // 构造函数
     UserManage();
 
@@ -93,7 +98,7 @@ private:
     void save_vector();
 };
 //商品管理
-class GoodsManager
+class GoodsManager:public Log
 {
 public:
 
@@ -119,13 +124,15 @@ public:
         //显示
     void Show_Emp();
       //删除
-    void Del_Emp();
+  //  void Del_Emp();
             //按照职工编号判断职工是否存在,若存在返回职工在数组中位置，不存在返回-1
   //  int IsExist(int id);
 
-    //商品数组的指针
-  //  Goods ** m_GdArray;
-    vector<goodsInfo> m_GdVector;
+
+        // 商品数组的指针
+        //  Goods ** m_GdArray;
+        vector<goodsInfo>
+            m_GdVector;
     void ShowGoodsInfo(goodsInfo tmp);
     void save_vector();
 
@@ -138,7 +145,7 @@ public:
     void Product_Add();//增加商品
     void product_Show();//商品显示
     int iDSearch(int iCheckID);
-    Log logh;
+  //  Log logh;
     string curentUser;
 };
 

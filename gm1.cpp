@@ -3,20 +3,38 @@ using namespace std;
 
 void test()
 {
-
-    UserManage ur;
+   //int i;
+        //UserManage ur;
+      //  i = ur.InputPassword();
     //   unsigned int hashPassValue = ur.simpleHash("test");
-    ur.UserAdd();
+    //ur.UserAdd();
     //   ur.UserLogin();  */
+    GoodsManager wm;
+    wm.ShowLog();
+
+/*     ifstream file(LOGFILENAME); // 打开文件
+    string line; */
+
+/*     if (file.is_open()) {
+        while (:getline(file, line)) { // 逐行读取文件内容
+            cout << line << endl; // 打印每行内容
+        }
+        file.close(); // 关闭文件
+    } else {
+        scout << "无法打开文件" << endl;
+    }
+ */
+ 
 }
+
 
 int main()
 {
-
+    test();
     GoodsManager wm;
     UserManage ur;
 
-    int choice = 0;
+    char choice = '0';
     int LoginFlag = 0;
     // 用户登录
     while (LoginFlag == 0)
@@ -33,39 +51,31 @@ int main()
         cout << "choice:" << endl;
             cin >> choice;
 
-        //  cout << "input goods id: " << endl;
-/*         while (!(cin >> choice))
-        {
-            cout << "Invalid input. Please enter a valid choice: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
- */
         switch (choice)
         {
-        case 0: // 退出系统
+        case '0': // 退出系统
             wm.exitSystem();
             break;
-        case 1: // 添加商品
+        case '1': // 添加商品
                 //  wm.Add_Emp();
             wm.Product_Add();
             break;
-        case 2: // 显示商品
+        case '2': // 显示商品
             wm.Show_Emp();
             break;
-        case 3: // 商品出货
+        case '3': // 商品出货
 
             wm.GoodsOut();
             break;
-        case 4: //
+        case '4': //
 
             break;
-        case 5: // 商品入库
+        case '5': // 商品入库
             wm.GoodsIn();
             break;
-        case 6: // 排序商品
+        case '6': // 排序商品
             break;
-        case 7: // 增加用户
+        case '7': // 增加用户
         {
             // 如果账号是admin，可以增加用户
             string str = ur.getUsername();
@@ -84,25 +94,7 @@ int main()
     //   system("pause");
     return 0;
 }
-// 商品构建
-/* Goods::Goods(int iId, string sName, int iNum, string sUnit, int iPrice)
-{
-    this->m_Id = iId;
-    this->m_Name = sName;
-    this->m_Num = iNum;
-    this->m_Price = iPrice;
-    this->m_Unit = sUnit;
-} */
-// 显示商品信息
-/* void Goods::ShowGInfo()
-{
-    cout << "id      :" << this->m_Id
-         << " \tname  :" << this->m_Name
-         << " \tprice :" << this->m_Price
-         << " \tnumber:" << this->m_Num
-         << " \tunite :" << this->m_Unit << endl;
-}
- */
+
 // 构建函数
 GoodsManager::GoodsManager()
 {
@@ -201,32 +193,26 @@ void GoodsManager::init_Emp()
     ifstream ifs;
     ifs.open(FILENAME, ios::in);
 
-    int id;
+  /*   int id;
     string name;
     int iNum;
     string sUnit;
-    int iPrice;
+    int iPrice; */
     int index = 0;
+    goodsInfo tmp;
 
-    while (ifs >> id && ifs >> name && ifs >> sUnit && ifs >> iNum && ifs >> iPrice)
+    while (ifs >> tmp.m_Id && ifs >>tmp.m_Name && ifs >> tmp.m_Unit && ifs >> tmp.m_Num && ifs >> tmp.m_Price)
     {
 
-        // 指针数据方式
-
-        // 容器化
-        goodsInfo tmp;
-        tmp.m_Id = id;
+   /*       tmp.m_Id = id;
         tmp.m_Name = name;
         tmp.m_Unit = sUnit;
         tmp.m_Num = iNum;
-        tmp.m_Price = iPrice;
+        tmp.m_Price = iPrice; */
 
         this->m_GdVector.push_back(tmp); //   push_back(goods);//   push_back(goods);
-                                         //  this->m_EmpNum++;
-
         index++;
     }
-
     ifs.close();
 }
 // 显示商品
@@ -262,13 +248,8 @@ void GoodsManager::ShowGoodsInfo(goodsInfo tmp)
 void GoodsManager::Product_Add()
 {
     stringstream ss;
-/*     int id;
-    int iPrice;
-    int iNum = 0;
-    string name;
-    string sUnit; */
     string str;
-    Log logh; // 创建日志对象
+  //  Log logh; // 创建日志对象
     goodsInfo tmp;
     tmp.m_Num=0;
     cout << "Input ID: " << endl;
@@ -276,7 +257,7 @@ void GoodsManager::Product_Add()
     do
     {
         cin >> tmp.m_Id;
-    } while (tmp.m_Price > 0);
+    } while (tmp.m_Id <= 0);
                    /*    while (!(cin >> id) || id < 0)
                       {
                           cout << "Invalid input. Please enter a valid ID: ";
@@ -305,27 +286,17 @@ void GoodsManager::Product_Add()
    do
    {
     cin >> tmp.m_Price;
-   }while(tmp.m_Price>0);
+   }while(tmp.m_Price<=0);
 
     cout<< "input unit: " << endl;
-    // cin >> sUnit;
-    /*     cin.ignore(); // Igore any remaining characters in the input buffer
-        getline(cin, sUnit); */
+
 /*     do
     {
         cin >> sUnit;
     } while (sUnit.empty()); */
     cin >> tmp.m_Unit;
 
-    // 指针方式
-
-    // 容器方式
- /*    goodsInfo tmp;
-    tmp.m_Id = id;
-    tmp.m_Name = name;
-    tmp.m_Num = iNum;
-    tmp.m_Price = iPrice;
-    tmp.m_Unit = sUnit; */
+ 
     this->m_GdVector.push_back(tmp);
     // 更新新的个数
     this->m_EmpNum++;
@@ -336,11 +307,9 @@ void GoodsManager::Product_Add()
     cout << "add success" << endl;
 
     // 生成日志消息
-    ss << "input id:" << tmp.m_Id << " name:" << tmp.m_Name << " price:" << tmp.m_Price << " unite:" << tmp.m_Unit;
-
+    ss <<"user::"<<this->curentUser<< " input id:" << tmp.m_Id << " name:" << tmp.m_Name << " price:" << tmp.m_Price << " unite:" << tmp.m_Unit;
     getline(ss, str);
-
-    logh.AddLog(str);
+    this->AddLog(str);
     //   nname, iNum, sUnit, iPrice
 
     //   system("pause");
@@ -452,9 +421,9 @@ void GoodsManager::GoodsIn()
                     this->save_vector();
 
                     // 生成日志消息
-                    ss << "ID: " << tmpGoods.m_Id << " name:" << tmpGoods.m_Name << " in:" << iNum;
+                    ss << "user::" << this->curentUser<< "ID: " << tmpGoods.m_Id << " name:" << tmpGoods.m_Name << " in:" << iNum;
                     getline(ss, str);
-                    this->logh.AddLog(str);
+                    this->AddLog(str);
                 }
                 else
                 {
@@ -528,11 +497,11 @@ void GoodsManager::GoodsOut()
                     // this->save();
                     this->save_vector();
                     // 生成日志消息
-                    ss << "ID:" << tmpGoods.m_Id << " name:" << tmpGoods.m_Name << " out" << iNum;
+                    ss << "user::" << this->curentUser<< "ID:" << tmpGoods.m_Id << " name:" << tmpGoods.m_Name << " out" << iNum;
                     //  ss << "id:" << tmpGoods.m_Id << " name:" << tmpGoods.m_Name << " sold" << iNum;
                     getline(ss, str);
                     //    logh.AddLog(str);
-                    this->logh.AddLog(str);
+                    this->AddLog(str);
                 }
                 else
                 {
@@ -567,6 +536,27 @@ void Log::AddLog(string sMessage)
 
     ofs.close();
 }
+
+//显示日志
+void Log::ShowLog()
+{
+    ifstream file(LOGFILENAME); // 打开文件
+    string line;
+
+    if (file.is_open())
+    {
+        while (getline(file, line))
+        {                         // 逐行读取文件内容
+            cout << line << endl; // 打印每行内容
+        }
+        file.close(); // 关闭文件
+    }
+    else
+    {
+        cout << "无法打开文件" << endl;
+    }
+}
+
 // 用户登录
 int UserManage::UserLogin()
 {
@@ -577,11 +567,13 @@ int UserManage::UserLogin()
     string input_username;
     cin >> input_username;
 
-    cout << "input password: ";
-    string input_password;
-    cin >> input_password;
+    cout << "input password: "; 
+    unsigned int encrypted_input_password;
+   // cin >> input_password;
+    /*   unsigned int encrypted_input_password = this->simpleHash(input_password); */
 
-    unsigned int encrypted_input_password = this->simpleHash(input_password);
+    encrypted_input_password = this->InputPassword();
+
     // string encrypted_input_password = input_password;
     // 验证用户名和密码是否匹配
     // UserList ur(encrypted_username, encrypted_password);
@@ -647,6 +639,44 @@ UserManage::UserManage()
     // 初始化用户
     init_Usr();
 }
+//输入密码，回显'*'
+unsigned int UserManage::InputPassword()
+{
+    char password[20];
+    int i = 0;
+    char ch;
+    string str;
+  //  cout << "input user password: ";
+    while (1)
+    {
+        ch = getch();
+        if (ch == '\r') // 判断是否是回车键
+        {
+            password[i] = '\0'; // 字符串结束标记
+            break;
+        }
+        else if (ch == '\b') // 判断是否是退格键
+        {
+            if (i > 0)
+            {
+                cout << "\b \b"; // 删除一个字符
+                i--;
+            }
+        }
+        else // 正常字符
+        {
+            password[i] = ch;
+            i++;
+            cout << "*"; // 屏幕上以"*"显示输入的字符
+        }
+    }
+    cout << endl;
+    /**    << "input user password: " << password; */
+    i = this->simpleHash(password);
+    return i;
+}
+
+//统计用户数目
 int UserManage::get_EmpNum()
 {
     string encrypted_username;
@@ -658,7 +688,7 @@ int UserManage::get_EmpNum()
 
     while (ifs >> encrypted_username && ifs >> hashPassValue)
     {
-        // 记录人数
+        // 记录用户数目
         //              this->m_GdArray[num]->m_Id = id;
         num++;
     }
@@ -730,33 +760,36 @@ int UserManage::UserAdd()
     // 输入新数据
 
     string input_name;
-    string input_password1, input_password2;
+    unsigned int input_password1, input_password2;
     string str;
 
     // 提示用户输入用户名和密码
 
-    cout << "input user's name: " << endl;
+    cout << "input user's name: " ;
     cin >> input_name;
 
     // 加入异常处理
     /*      cin.ignore(); // Ignore any remaining characters in the input buffer
         getline(cin, input_name);  */
+    //先换行，再输出
+     cout << "input password: ";
+    /*cin >> input_password1; */
+    input_password1=this->InputPassword();
 
-    cout << "input password: ";
-    cin >> input_password1;
-    /*          cin.ignore(); // Ignore any remaining characters in the input buffer
-            getline(cin, input_password1);  */
-
-    cout << "input password again: ";
+            /*          cin.ignore(); // Ignore any remaining characters in the input buffer
+                    getline(cin, input_password1);  */
+    // 先换行，再输出
+    cout<<"input password again: ";
+    input_password2=this->InputPassword();
     //   cout << "input password ";
     /*      cin.ignore(); // Ignore any remaining characters in the input buffer
         getline(cin, input_password2);  */
 
-    cin >> input_password2;
-
+   /*  cin >> input_password2; */
+    //判断两次密码是否输入相同
     if (input_password1 != input_password2)
     {
-        cout << "the password is not same ";
+        cout << "the password is not same "<<endl;
         return 0;
     }
 
@@ -765,9 +798,9 @@ int UserManage::UserAdd()
     // 容器模式
     userInfo tmp;
     // 生成hash加密密码
-    unsigned int hashPassValue = this->simpleHash(input_password1);
+   // unsigned int hashPassValue = this->simpleHash(input_password1);
     tmp.username = input_name;
-    tmp.hashpassword = hashPassValue;
+    tmp.hashpassword = input_password1;
 
     this->m_UsrVector.push_back(tmp);
     // 更新新的个数
@@ -777,6 +810,14 @@ int UserManage::UserAdd()
     this->save_vector();
 
     cout << "add success" << endl;
+   //日志记录
+    ss << "add user:" ;
+
+    getline(ss, str);
+
+    // logh.AddLog(str);
+    this->AddLog(str);
+
     return 1;
 }
 
